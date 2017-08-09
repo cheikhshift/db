@@ -93,7 +93,7 @@ This function will fail if your struct's `Id` field is blank.
 	dbs.Remove(&obj)
 
 
-#Index
+# Index
 	
 	package github.com/cheikhshift/db
 
