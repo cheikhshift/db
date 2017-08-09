@@ -123,7 +123,7 @@ Verify if model is valid. This [package](https://github.com/asaskevich/govalidat
 
 	func (d DB) PreVerify(item interface{}) error
 
-- item : Model (struct) to verify.
+- item : Model (&struct) to verify.
 
 ### Query
 More information about mgo.Query [here](https://godoc.org/labix.org/v2/mgo#Query). Once your query is retrieved you may count ,limit, skip as you please.
