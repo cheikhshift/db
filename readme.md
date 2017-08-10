@@ -183,6 +183,11 @@ Syntax of adding a field format to struct :
 	"rfc3339":        IsRFC3339,
 	"ISO3166Alpha2":  IsISO3166Alpha2,
 	"ISO3166Alpha3":  IsISO3166Alpha3,
+	"range(min|max)": Range,
+	"length(min|max)": ByteLength,
+	"runelength(min|max)": RuneLength,
+	"matches(pattern)": StringMatches,
+	"in(string1|string2|...|stringN)": IsIn
 
 ### Query
 More information about mgo.Query [here](https://godoc.org/labix.org/v2/mgo#Query). Once your query is retrieved you may count ,limit, skip as you please.
