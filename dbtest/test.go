@@ -29,7 +29,7 @@ func main() {
 	dbs.Q(query).Find(db.O{"fieldtwo": "Ivalud@update.com"}).One(&query)
 
 	fmt.Println(query)
-
+	dbs.Close()
 	/* 
 		Directly add new items withoout calling dbs.New
 	

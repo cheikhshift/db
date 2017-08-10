@@ -118,6 +118,13 @@ Create a new database connection.
 -url : MongoDb server URI to connect to.
 - db: database to use.
 
+
+## Close
+
+Close database connection.
+
+	func (d DB) Close()
+
 ### Validate
 Verify if model is valid. This [package](https://github.com/asaskevich/govalidator) is used for validation, Read more about supported types [here](https://github.com/asaskevich/govalidator).
 
@@ -160,7 +167,7 @@ Remove model from database. If the model has no value for field Id this function
 ### RemoveAll
 Remove items via `db.O` query.
 
-func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,error)
+	func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,error)
 
 - item : model to set query to.
 - query :  map of parameters to query.

@@ -14,6 +14,7 @@ import (
 
 type DB struct {
 	MoDb *mgo.Database
+	S *mgo.Session
 }
 
 type O bson.M
@@ -30,6 +31,10 @@ govalidator.TagMap["unique"] = govalidator.Validator(func(item interface{}) bool
 	return true
 }) */
 
+func (d DB) Close() {
+	d.S.Close()
+}
+
 
 func Connect(url string, db string) (DB,error){
 
@@ -39,7 +44,7 @@ func Connect(url string, db string) (DB,error){
 	if err != nil {
 		return DB{},err
 	} 
-	connection := DB{ session.DB(db)}
+	connection := DB{ session.DB(db),session}
 	govalidator.TagMap["unique"] = govalidator.Validator(func(str string) bool {
 	return true
 	})
