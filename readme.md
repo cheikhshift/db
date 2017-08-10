@@ -128,7 +128,7 @@ Verify if model is valid. This [package](https://github.com/asaskevich/govalidat
 ### Query
 More information about mgo.Query [here](https://godoc.org/labix.org/v2/mgo#Query). Once your query is retrieved you may count ,limit, skip as you please.
 
-	func (d DB) Query(item interface{}, query interface{}) *mgo.Query
+	func (d DB) Query(item interface{}, query O{}) *mgo.Query
 
 - item : Model to set query to.
 - query : `db.O`  map of parameters to query.
@@ -160,7 +160,7 @@ Remove model from database. If the model has no value for field Id this function
 ### RemoveAll
 Remove items via `db.O` query.
 
-func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,error)
+func (d DB) RemoveAll(item interface{},query  O{}) (*mgo.ChangeInfo,error)
 
 - item : model to set query to.
 - query :  map of parameters to query.
@@ -168,7 +168,7 @@ func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,erro
 ### UpdateAll ...Save `All` 
 Update models in your database via query.
 
-	func (d DB) UpdateAll(item interface{},query interface{}, update interface{}) (*mgo.ChangeInfo,error) 
+	func (d DB) UpdateAll(item interface{},query O{}, update O{}) (*mgo.ChangeInfo,error) 
 
 - item : model to set query to.
 - query : map of parameters to query.
