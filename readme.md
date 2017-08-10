@@ -119,11 +119,70 @@ Create a new database connection.
 - db: database to use.
 
 ### Validate
-Verify if model is valid. This [package](https://github.com/asaskevich/govalidator) is used for validation, Read more about supported types [here](https://github.com/asaskevich/govalidator).
+Verify if model is valid.[Govalidator](https://github.com/asaskevich/govalidator) is used for validation, Read more about supported types [here](https://github.com/asaskevich/govalidator).
 
 	func (d DB) PreVerify(item interface{}) error
 
 - item : Model (&struct) to verify.
+
+Syntax of adding a field format to struct : 
+
+	type Struct struct {
+		Field string `valid:"<specified types, comma separated ie : email,unique >"`
+	}
+
+(copied from GoValidator page)
+
+"email":          IsEmail,
+"url":            IsURL,
+"dialstring":     IsDialString,
+"requrl":         IsRequestURL,
+"requri":         IsRequestURI,
+"alpha":          IsAlpha,
+"utfletter":      IsUTFLetter,
+"alphanum":       IsAlphanumeric,
+"utfletternum":   IsUTFLetterNumeric,
+"numeric":        IsNumeric,
+"utfnumeric":     IsUTFNumeric,
+"utfdigit":       IsUTFDigit,
+"hexadecimal":    IsHexadecimal,
+"hexcolor":       IsHexcolor,
+"rgbcolor":       IsRGBcolor,
+"lowercase":      IsLowerCase,
+"uppercase":      IsUpperCase,
+"int":            IsInt,
+"float":          IsFloat,
+"null":           IsNull,
+"uuid":           IsUUID,
+"uuidv3":         IsUUIDv3,
+"uuidv4":         IsUUIDv4,
+"uuidv5":         IsUUIDv5,
+"creditcard":     IsCreditCard,
+"isbn10":         IsISBN10,
+"isbn13":         IsISBN13,
+"json":           IsJSON,
+"multibyte":      IsMultibyte,
+"ascii":          IsASCII,
+"printableascii": IsPrintableASCII,
+"fullwidth":      IsFullWidth,
+"halfwidth":      IsHalfWidth,
+"variablewidth":  IsVariableWidth,
+"base64":         IsBase64,
+"datauri":        IsDataURI,
+"ip":             IsIP,
+"port":           IsPort,
+"ipv4":           IsIPv4,
+"ipv6":           IsIPv6,
+"dns":            IsDNSName,
+"host":           IsHost,
+"mac":            IsMAC,
+"latitude":       IsLatitude,
+"longitude":      IsLongitude,
+"ssn":            IsSSN,
+"semver":         IsSemver,
+"rfc3339":        IsRFC3339,
+"ISO3166Alpha2":  IsISO3166Alpha2,
+"ISO3166Alpha3":  IsISO3166Alpha3,
 
 ### Query
 More information about mgo.Query [here](https://godoc.org/labix.org/v2/mgo#Query). Once your query is retrieved you may count ,limit, skip as you please.
