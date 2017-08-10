@@ -172,4 +172,4 @@ Update models in your database via query.
 
 - item : model to set query to.
 - query : map of parameters to query.
-- update : map of updates to make. Remember to use MongoDb selections , ie : `$ne`.
+- update : map of updates to make. Remember MongoDb selectors are supported , ie : `$ne`.
