@@ -231,11 +231,7 @@ Remove model from database. If the model has no value for field Id this function
 ### RemoveAll
 Remove items via `db.O` query.
 
-<<<<<<< HEAD
-	func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,error)
-=======
-func (d DB) RemoveAll(item interface{},query  O{}) (*mgo.ChangeInfo,error)
->>>>>>> origin/master
+	func (d DB) RemoveAll(item interface{},query  O{}) (*mgo.ChangeInfo,error)
 
 - item : model to set query to.
 - query :  map of parameters to query.
