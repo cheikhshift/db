@@ -114,11 +114,12 @@ func (d DB) PreVerify(item interface{}) error {
 				if chec[strings.ToLower(field.Name)] == nil {
 					chec[strings.ToLower(field.Name)] = bso[field.Name]
 				}
-				if _, ok:= bso["_id"]; ok {
-					id := bso["_id"].(bson.M)
-					chec["_id"] = bson.M{"$ne" : bson.ObjectIdHex(id["$id"].(string))}
+				if _, ok:= bso["Id"]; ok {
+					if bso["Id"].(string) != "" {
+					chec["_id"] = bson.M{"$ne" : bson.ObjectIdHex(bso["Id"].(string))}
+					}
 				}
-				
+			
 				count, err := collection.Find(chec).Count()
 
 				if err != nil {
