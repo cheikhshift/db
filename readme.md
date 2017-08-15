@@ -93,7 +93,7 @@ This function will fail if your struct's `Id` field is blank.
 	dbs.Remove(&obj)
 
 
-# Index
+#Index
 	
 	package github.com/cheikhshift/db
 
@@ -126,80 +126,16 @@ Close database connection.
 	func (d DB) Close()
 
 ### Validate
-Verify if model is valid.[Govalidator](https://github.com/asaskevich/govalidator) is used for validation, Read more about supported types [here](https://github.com/asaskevich/govalidator).
+Verify if model is valid. This [package](https://github.com/asaskevich/govalidator) is used for validation, Read more about supported types [here](https://github.com/asaskevich/govalidator).
 
 	func (d DB) PreVerify(item interface{}) error
 
-- item : Model (&struct) to verify.
-
-Syntax of adding a field format to struct : 
-
-	type Struct struct {
-		Field string `valid:"<specified types, comma separated ie : email,unique >"`
-	}
-
-(copied from GoValidator page)
-
-	"email":          IsEmail,
-	"url":            IsURL,
-	"dialstring":     IsDialString,
-	"requrl":         IsRequestURL,
-	"requri":         IsRequestURI,
-	"alpha":          IsAlpha,
-	"utfletter":      IsUTFLetter,
-	"alphanum":       IsAlphanumeric,
-	"utfletternum":   IsUTFLetterNumeric,
-	"numeric":        IsNumeric,
-	"utfnumeric":     IsUTFNumeric,
-	"utfdigit":       IsUTFDigit,
-	"hexadecimal":    IsHexadecimal,
-	"hexcolor":       IsHexcolor,
-	"rgbcolor":       IsRGBcolor,
-	"lowercase":      IsLowerCase,
-	"uppercase":      IsUpperCase,
-	"int":            IsInt,
-	"float":          IsFloat,
-	"null":           IsNull,
-	"uuid":           IsUUID,
-	"uuidv3":         IsUUIDv3,
-	"uuidv4":         IsUUIDv4,
-	"uuidv5":         IsUUIDv5,
-	"creditcard":     IsCreditCard,
-	"isbn10":         IsISBN10,
-	"isbn13":         IsISBN13,
-	"json":           IsJSON,
-	"multibyte":      IsMultibyte,
-	"ascii":          IsASCII,
-	"printableascii": IsPrintableASCII,
-	"fullwidth":      IsFullWidth,
-	"halfwidth":      IsHalfWidth,
-	"variablewidth":  IsVariableWidth,
-	"base64":         IsBase64,
-	"datauri":        IsDataURI,
-	"ip":             IsIP,
-	"port":           IsPort,
-	"ipv4":           IsIPv4,
-	"ipv6":           IsIPv6,
-	"dns":            IsDNSName,
-	"host":           IsHost,
-	"mac":            IsMAC,
-	"latitude":       IsLatitude,
-	"longitude":      IsLongitude,
-	"ssn":            IsSSN,
-	"semver":         IsSemver,
-	"rfc3339":        IsRFC3339,
-	"ISO3166Alpha2":  IsISO3166Alpha2,
-	"ISO3166Alpha3":  IsISO3166Alpha3,
-	"range(min|max)": Range,
-	"length(min|max)": ByteLength,
-	"runelength(min|max)": RuneLength,
-	"matches(pattern)": StringMatches,
-	"in(string1|string2|...|stringN)": IsIn
+- item : Model (struct) to verify.
 
 ### Query
 More information about mgo.Query [here](https://godoc.org/labix.org/v2/mgo#Query). Once your query is retrieved you may count ,limit, skip as you please.
 
-	func (d DB) Query(item interface{}, query O{}) *mgo.Query
+	func (d DB) Query(item interface{}, query interface{}) *mgo.Query
 
 - item : Model to set query to.
 - query : `db.O`  map of parameters to query.
@@ -231,11 +167,7 @@ Remove model from database. If the model has no value for field Id this function
 ### RemoveAll
 Remove items via `db.O` query.
 
-<<<<<<< HEAD
 	func (d DB) RemoveAll(item interface{},query  interface{}) (*mgo.ChangeInfo,error)
-=======
-func (d DB) RemoveAll(item interface{},query  O{}) (*mgo.ChangeInfo,error)
->>>>>>> origin/master
 
 - item : model to set query to.
 - query :  map of parameters to query.
@@ -243,8 +175,8 @@ func (d DB) RemoveAll(item interface{},query  O{}) (*mgo.ChangeInfo,error)
 ### UpdateAll ...Save `All` 
 Update models in your database via query.
 
-	func (d DB) UpdateAll(item interface{},query O{}, update O{}) (*mgo.ChangeInfo,error) 
+	func (d DB) UpdateAll(item interface{},query interface{}, update interface{}) (*mgo.ChangeInfo,error) 
 
 - item : model to set query to.
 - query : map of parameters to query.
-- update : map of updates to make. Remember MongoDb selectors are supported , ie : `$ne`.
+- update : map of updates to make. Remember to use MongoDb selections , ie : `$ne`.

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"reflect"
 	"time"
-	//"fmt"
+//	"fmt"
 	"encoding/json"
 	"errors"
  	"github.com/asaskevich/govalidator"
@@ -40,7 +40,7 @@ func Connect(url string, db string) (DB,error){
 
 	session, err := mgo.Dial(url)
 	// Optional. Switch the session to a monotonic behavior.
-   	// session.SetMode(mgo.Monotonic, true)
+   	session.SetMode(mgo.Monotonic, true)
 	if err != nil {
 		return DB{},err
 	} 
@@ -75,6 +75,11 @@ func (d DB) C(item interface{}, ret interface{}) error  {
 
 
 func mResponse(v interface{}) string {
+					data,_ := json.Marshal(&v)
+					return string(data)
+}
+
+func RResponse(v interface{}) string {
 					data,_ := json.Marshal(&v)
 					return string(data)
 }
@@ -114,11 +119,12 @@ func (d DB) PreVerify(item interface{}) error {
 				if chec[strings.ToLower(field.Name)] == nil {
 					chec[strings.ToLower(field.Name)] = bso[field.Name]
 				}
-				if _, ok:= bso["_id"]; ok {
-					id := bso["_id"].(bson.M)
-					chec["_id"] = bson.M{"$ne" : bson.ObjectIdHex(id["$id"].(string))}
+				if _, ok:= bso["Id"]; ok {
+					if bso["Id"].(string) != "" {
+					chec["_id"] = bson.M{"$ne" : bson.ObjectIdHex(bso["Id"].(string))}
+					}
 				}
-				
+			
 				count, err := collection.Find(chec).Count()
 
 				if err != nil {
@@ -160,15 +166,13 @@ func (d DB) Remove(items ...interface{}) error {
 		object := strings.Split(reflect.TypeOf(item).String(),".")
 		Collection := object[len(object) - 1]
 		collection := d.MoDb.C(Collection)
-		stype := reflect.ValueOf(item).Elem()
-		field := stype.FieldByName("Id")
-			if field.IsValid() {
-			id := field.Interface().(bson.ObjectId)
-			err := collection.Remove(bson.M{"_id" : id})
+		bso :=  ToBson( mResponse(item) )
+		
+			err := collection.Remove(bson.M{"_id" : bson.ObjectIdHex(bso["Id"].(string)) })
 			 if err != nil {
 			 	return err
 			 }
-		} 
+		
 	}
 
 	return nil
@@ -213,17 +217,21 @@ func (d DB) Upsert(item interface{}) error {
 
 			object := strings.Split(reflect.TypeOf(item).String(),".")
 			Collection := object[len(object) - 1]
-			stype := reflect.ValueOf(item).Elem()
-			field := stype.FieldByName("Id")
-			if field.IsValid(){
-				id := field.Interface().(bson.ObjectId)
-				_,err := d.MoDb.C(Collection).Upsert( bson.M{"_id" : id }, item)
+			bso :=  ToBson( mResponse(item) )
+				stype := reflect.ValueOf(item).Elem()
+					upd := stype.FieldByName("Updated")
+						if upd.IsValid() {
+							upd.Set(reflect.ValueOf(time.Now() ) )
+						}
+
+				
+				_,err = d.MoDb.C(Collection).Upsert( bson.M{"_id" : bson.ObjectIdHex(bso["Id"].(string)) }, item)
 				
 				if err != nil {
 				//perform verification too
 				return err
 				}
-			}
+			
 
 	return nil
 } 
@@ -280,6 +288,13 @@ func (d DB) Add(items ...interface{}) error {
 			if field.IsValid() {
 				field.Set(reflect.ValueOf(time.Now() ) )
 			}
+
+			field = stype.FieldByName("Updated")
+			if field.IsValid() {
+				field.Set(reflect.ValueOf(time.Now() ) )
+			}
+
+
 			err = d.MoDb.C(Collection).Insert(item)
 			if err != nil {
 				//perform verification too
