@@ -20,12 +20,7 @@
 	<output>server_out.go</output>
 	<!-- exported session fields available to Session -->
 	<var type="db.DB">dbs</var>
-	<main>
-	/* GOLANG SCOPE */
-		defer dbs.Close()
-		dbs,_ = db.Connect("localhost", "dbtest")
-		
-	</main>
+
 
 	<key>a very very very very secret key</key>
 	<!-- Declare global variables -->
