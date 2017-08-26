@@ -13,8 +13,8 @@
 	<!-- Using <import/> within the <go/> tag is similar to using the import call within a .go file -->
 	<!-- To be less dramating, GoS will skip packages that it has already imported -->
 	<import src="github.com/cheikhshift/db" />
-	<import src="gopkg.in/mgo.v2/bson" /> 
 	<import src="gopkg.in/mgo.v2" /> 
+	<import src="gopkg.in/mgo.v2/bson" />
 	<import src="errors"/>
 	<!-- Go File output name -->
 	<output>server_out.go</output>
