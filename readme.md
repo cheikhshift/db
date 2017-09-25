@@ -1,7 +1,7 @@
 # Go-Express
 
 
-Simple Mongo client for Go. The package aims to match Express seamless integration with NodeJs and MongoDb.
+Mongo DBMS client. The package aims to match Express seamless integration with NodeJs and MongoDb.
 
 [Index](#index)
 
