@@ -43,6 +43,9 @@ Format of server URI :
 
 	[mongodb://][user:pass@]host1[:port1][,host2[:port2],...][/database][?options]
 
+## Info
+Throuughout this page the statement `model to set query` is used. It refers to the interface you wish to query. This works by using the specified interface as a table/collection name.
+
 ## Add new model
 
 Define a new struct as usual (fields Created and Id are system generated) :
