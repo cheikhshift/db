@@ -48,7 +48,7 @@ Throuughout this page the statement `model to set query` is used. It refers to t
 
 ## Add new model
 
-Define a new struct as usual (fields Created and Id are system generated) :
+Define a new interface as usual (fields Created and Id are system generated) :
 
 	type MyObject struct {
 		Id bson.ObjectId `bson:"_id,omitempty"`
@@ -65,6 +65,9 @@ The following tag `valid` will ensure your field data is an email.
 
 	 FieldTwo string `valid:"email,required"`
 
+### Validation
+Validation possible by package [Go Validator](https://github.com/asaskevich/govalidator). Visit the repository for a full list of supported validator interface tags.
+
 ## Save a model
 	
 	obj := NewObject{FieldTwo: "value" }
@@ -76,7 +79,7 @@ The following tag `valid` will ensure your field data is an email.
 
 ## Retrieve model
 
-The following query will return one object. Within the Find function you may use all of the usual Mongo DB query functions. Remember to add strings even around `$` prefixed parameters. The following example will retrieve one result. Any struct field is converted to lower case on database save, when performing a query type struct field names without capital letters. 
+The following query will return one object. Within the Find function you may use all of the usual Mongo DB query functions. Remember to add strings even around `$` prefixed parameters. The following example will retrieve one result. Any interface field is converted to lower case on database save, when performing a query type interface field names without capital letters. 
 
 	query := MyObject{}
 	dbs.Q(query).Find(db.O{"fieldtwo":"value"}).One(&query)
@@ -84,7 +87,7 @@ The following query will return one object. Within the Find function you may use
 	fmt.Println(query)
 
 ## Delete model
-This function will fail if your struct's `Id` field is blank.
+This function will fail if your interface's `Id` field is blank.
 
 	obj := NewObject{FieldTwo: "value" }
 	err := dbs.Add(&obj)	
@@ -100,7 +103,7 @@ This function will fail if your struct's `Id` field is blank.
 	
 	package github.com/cheikhshift/db
 
-## Structs
+## Interfaces
 
 ### DB
 	type DB struct {
