@@ -1,5 +1,5 @@
 # Go-Express
-![enter image description here](https://camo.githubusercontent.com/ed1230a48b6946283ee0d76185a726b49ba58254/68747470733a2f2f7472617669732d63692e6f72672f746f6f6c732f676f6465702e737667)
+
 
 Simple Mongo client for Go. The package aims to match Express seamless integration with NodeJs and MongoDb.
 
