@@ -15,7 +15,6 @@
 	<import src="github.com/cheikhshift/db" />
 	<import src="gopkg.in/mgo.v2" /> 
 	<import src="gopkg.in/mgo.v2/bson" />
-	<import src="errors"/>
 	<!-- Go File output name -->
 	<output>server_out.go</output>
 	<!-- exported session fields available to Session -->
